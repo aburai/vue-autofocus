@@ -13,7 +13,10 @@ then
   VERSION=$VERSION npm run build
   git add dist
   git commit -m "build: bundle $VERSION"
-  npm version "$VERSION" --message "chore(release): %s"
+
+  # bump the version and write it to package.json
+  # create a version commit and tag
+  npm version "$VERSION" -m "chore(release): %s"
 
   # changelog
   # npm run changelog
