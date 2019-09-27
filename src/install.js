@@ -6,6 +6,7 @@ export function install (Vue) {
   _Vue = Vue
 
   Vue.prototype.$autofocus = function(selector, options) {
+    console.log('this', this)
     console.log('$autofocus', selector, options)
   }
 }

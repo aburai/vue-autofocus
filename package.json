@@ -20,7 +20,8 @@
     "focus"
   ],
   "scripts": {
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "release": "bash scripts/release.sh"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
