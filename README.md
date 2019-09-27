@@ -1,12 +1,14 @@
 # vue-autofocus
 
-## UNDER CONSTRUCTION - not ready to use
+## UNDER CONSTRUCTION - use at own risc and create issues
 
 ### Introduction
 
 `vue-autofocus` is a plugin for [Vue.js](http://vuejs.org). Features include:
 
-- many supported selectors to define control to focus
+- many supported selectors to query control to focus
+- options for finetuning (initDelay, focusDelay, refocusDelay)
+- option for debugging (logs focus workflow)
 
 ### Development Setup
 
@@ -17,17 +19,6 @@ yarn install
 # build dist files
 yarn build
 ```
-
-## Releasing
-
-- `yarn release`
-  - Ensure tests are passing `yarn test`
-  - Build dist files `VERSION=<the_version> yarn build`
-  - Build changelog `yarn changelog`
-  - Commit dist files `git add dist CHANGELOG.md && git commit -m "[build $VERSION]"`
-  - Publish a new version `npm version $VERSION --message "[release] $VERSION"
-  - Push tags `git push origin refs/tags/v$VERSION && git push`
-  - Publish to npm `npm publish`
 
 ## License
 

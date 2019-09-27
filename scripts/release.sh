@@ -7,7 +7,7 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "Releasing v$VERSION ..."
-  npm test
+  # npm test
 
   # commit
   VERSION=$VERSION npm run build
@@ -16,7 +16,7 @@ then
   npm version "$VERSION" --message "chore(release): %s"
 
   # changelog
-  npm run changelog
+  # npm run changelog
   echo "Please check the git history and the changelog and press enter"
   read -r
   git add CHANGELOG.md

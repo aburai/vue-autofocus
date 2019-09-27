@@ -1,10 +1,13 @@
 {
   "name": "vue-autofocus",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Vue plugin to help manage focus handling.",
   "author": "André Bunse (aburai)",
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/vue-autofocus.common.js",
+  "module": "dist/vue-autofocus.esm.js",
+  "unpkg": "dist/vue-autofocus.js",
+  "jsdelivr": "dist/vue-autofocus.js",
   "repository": {
     "url": "https://github.com/aburai/vue-autofocus",
     "type": "git"
@@ -45,6 +48,5 @@
     "terser": "^4.3.3",
     "typescript": "^3.6.3",
     "vue": "^2.6.10"
-  },
-  "private": true
+  }
 }
