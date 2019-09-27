@@ -3,8 +3,7 @@
   * (c) 2019 André Bunse (aburai)
   * @license MIT
   */
-var _Vue;
-
+// global defaults options
 var _OPTIONS = {
   initDelay: 300,
   focusDelay: 100,
@@ -56,6 +55,8 @@ var _isVisible = function (el, opts) {
   var rect = el.getBoundingClientRect();
   return rect.left >= 0 && rect.left < parentWidth && rect.top >= 0 && rect.top < parentHeight
 };
+
+var _Vue;
 
 function install (Vue, options) {
   if (install.installed && _Vue === Vue) { return }
