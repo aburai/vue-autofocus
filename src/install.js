@@ -1,5 +1,4 @@
-export let _Vue
-
+// global defaults options
 const _OPTIONS = {
   initDelay: 300,
   focusDelay: 100,
@@ -51,6 +50,8 @@ const _isVisible = (el, opts) => {
   const rect = el.getBoundingClientRect()
   return rect.left >= 0 && rect.left < parentWidth && rect.top >= 0 && rect.top < parentHeight
 }
+
+export let _Vue
 
 export function install (Vue, options) {
   if (install.installed && _Vue === Vue) return

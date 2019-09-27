@@ -1,7 +1,5 @@
-## [0.1.1](https://github.com/aburai/vue-autofocus/compare/v0.1.0...v0.1.1) (2019-09-27)
-
-### Bug Fixes
+## [1.0.0](https://github.com/aburai/vue-autofocus) (2019-09-28)
 
 ### Features
 
-- **bold:** placeholder ([commit id](https://github.com/aburai/vue-autofocus/commit/commidid)), closes [#1](https://github.com/aburai/vue-autofocus/issues/1)
+- **first release:** make vue plugin from code i use in different projects and publish it to npm
