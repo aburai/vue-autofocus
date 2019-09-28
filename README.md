@@ -7,7 +7,7 @@
 `vue-autofocus` is a plugin for [Vue.js](http://vuejs.org). Features include:
 
 - many supported selectors to query control to focus
-- options for finetuning (initDelay, focusDelay, refocusDelay)
+- options for finetuning (see default global options)
 - option for debugging (logs focus workflow)
 
 ## Install
@@ -15,8 +15,8 @@
 From npm:
 
 ``` sh
-$ npm install vue-autofocus --save
-$ yarn add vue-autofocus
+$ npm install @aburai/vue-autofocus --save
+$ yarn add @aburai/vue-autofocus
 ```
 
 ### Usage
@@ -24,7 +24,7 @@ $ yarn add vue-autofocus
 #### append plugin to Vue
 ``` js
 import Vue from 'vue'
-import VueAutofocus from 'vue-autofocus'
+import VueAutofocus from '@aburai/vue-autofocus'
 Vue.use(VueAutofocus)
 // OR
 Vue.use(VueAutofocus, {globalOptions})
