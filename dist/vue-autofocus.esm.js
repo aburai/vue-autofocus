@@ -8,12 +8,15 @@ var _OPTIONS = {
   initDelay: 300,
   focusDelay: 100,
   refocusDelay: 100,
+  select: true,
   debug: false
 };
 
+// order of _validNodes sets priority when find first focusable element
+var _validNodesInput = ['INPUT', 'TEXTAREA'];
+var _validNodes = _validNodesInput.concat(['SELECT', 'BUTTON']);
 // find a valid node inside target element
 // if target element is valid return target
-var _validNodes = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'];
 var _findNode = function (target) {
   if (!target) { return }
   if (typeof target.querySelector !== 'function') { return }
@@ -106,7 +109,10 @@ function install (Vue, options) {
               t3 = setTimeout(function () {
                 if (el !== document.activeElement) { el.focus(); }
                 // debug focus state
-                if (el === document.activeElement) { _log('focused', el); }
+                if (el === document.activeElement) {
+                  _selectText(el);
+                  _log('focused', el);
+                }
                 else { _log('failed', document.activeElement); }
                 t1 = null;
                 t2 = null;
@@ -118,8 +124,37 @@ function install (Vue, options) {
       }, opts.initDelay);
     });
 
+    var _selectText = function (element, selectionStart, selectionEnd) {
+      if (!opts.select) { return }
+      if (!element || !element.nodeName) { return }
+      if (!_validNodesInput.includes(element.nodeName)) { return }
+
+      if (element.createTextRange) {
+        var range = element.createTextRange();
+        range.move('character', selectionEnd);
+        range.select();
+      }
+      else {
+        try {
+          // select part of text
+          if (typeof selectionStart !== 'undefined' && typeof selectionEnd !== 'undefined') {
+            element.setSelectionRange(selectionStart, selectionEnd);
+          }
+          else { element.select(); } // select all text
+        }
+        catch (e) {
+          // eslint-disable-next-line
+          console.warn('The input element type does not support selection');
+        }
+      }
+    };
+
     var _findContainer = function () {
       var target;
+
+      if (typeof selector === 'object' && selector.ref) {
+        selector = this$1.$refs[selector.ref];
+      }
 
       if (selector && typeof selector === 'string') {
         target = this$1.$el.querySelector(selector);

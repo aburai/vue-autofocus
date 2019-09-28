@@ -26,6 +26,19 @@ $ yarn add vue-autofocus
 import Vue from 'vue'
 import VueAutofocus from 'vue-autofocus'
 Vue.use(VueAutofocus)
+// OR
+Vue.use(VueAutofocus, {globalOptions})
+```
+
+#### default global options
+``` js
+{
+  initDelay: 300,
+  focusDelay: 100,
+  refocusDelay: 100,
+  select: true,
+  debug: false
+}
 ```
 
 #### use plugin
@@ -34,7 +47,32 @@ mounted() {
     this.$autofocus() // use this.$el to find a focusable control
     this.$autofocus('#my-element') // find element by id in this.$el
     this.$autofocus(this.$refs.form)
+    this.$autofocus({ref: 'form'}) // get selector from this.$refs after $nextTick
     this.$autofocus(this.$refs.dialog, {initDelay: 600, debug: true})
+    this.$autofocus(this.$refs.input, {select: false}) // do not select input text
+}
+```
+
+#### Troubleshooting
+example: focus on dialog element in a watcher with ref
+
+wrong
+``` js
+watch: {
+  dialog(state) {
+    // this.$refs.dialogcard could be undefined
+    if (state) this.$autofocus(this.$refs.dialogcard)
+  }
+}
+```
+correct
+``` js
+watch: {
+  dialog(state) {
+    if (state) this.$nextTick(() => this.$autofocus(this.$refs.dialogcard))
+    // OR
+    if (state) this.$autofocus({ref: 'dialogcard'})
+  }
 }
 ```
 
