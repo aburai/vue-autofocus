@@ -1,5 +1,5 @@
 /*!
-  * vue-autofocus v1.0.2
+  * vue-autofocus v1.0.3
   * (c) 2019 André Bunse (aburai)
   * @license MIT
   */
@@ -44,6 +44,8 @@ const _isInvalid = (el) => {
   return ''
 };
 const _isVisible = (el, opts) => {
+  if (!el || typeof el.getBoundingClientRect !== 'function') return false
+
   let parentWidth;
   let parentHeight;
   if (opts && opts.parent) {
@@ -74,13 +76,17 @@ function install (Vue, options) {
   Vue.prototype.$autofocus = function(selector, copts) {
     // options for this focus trigger
     const opts = Object.assign({}, _options, copts);
+    let userEvent = false;
+
+    _log('vue-autofocus', selector || '');
 
     this.$nextTick(() => {
-      clearTimeout(t0);
+      if (t0) clearTimeout(t0);
       // initial timeout is for possible transitions (ex. tabs changed)
       t0 = setTimeout(() => {
         // find container
         const container = _findContainer();
+        if (!container) return _log('container not found', selector)
         // if container is not visible, maybe you must increase initDelay
         if (!_isVisible(container, opts)) return _log('selector is not visible')
 
@@ -92,29 +98,38 @@ function install (Vue, options) {
         if (err) return _log('error:', err, el)
         // TODO check visibility of el?
 
+        _start();
         _log('active element before', document.activeElement);
         this.$nextTick(() => {
-          clearTimeout(t1);
-          clearTimeout(t2);
-          clearTimeout(t3);
+          if (t1) clearTimeout(t1);
+          if (t2) clearTimeout(t2);
+          if (t3) clearTimeout(t3);
           // first timeout is for possible transitions (ex. tabs changed)
           t1 = setTimeout(() => {
             el.focus();
+
             // second timeout is to check a focus lost
+            // skipped if an userEvent currently happened
             t2 = setTimeout(() => {
-              if (el !== document.activeElement) el.focus();
+              if (el !== document.activeElement && !userEvent) el.focus();
+
               // third timeout as safeguard
+              // skipped if an userEvent currently happened
               t3 = setTimeout(() => {
-                if (el !== document.activeElement) el.focus();
+                if (el !== document.activeElement && !userEvent) el.focus();
+
                 // debug focus state
                 if (el === document.activeElement) {
                   _selectText(el);
                   _log('focused', el);
                 }
-                else _log('failed', document.activeElement);
+                else if (!userEvent) _log('failed', document.activeElement);
+                else _log('user event: skipped');
+
                 t1 = null;
                 t2 = null;
                 t3 = null;
+                _finish();
               }, opts.refocusDelay);
             }, opts.refocusDelay);
           }, opts.focusDelay);
@@ -123,9 +138,10 @@ function install (Vue, options) {
     });
 
     const _selectText = (element, selectionStart, selectionEnd) => {
-      if (!opts.select) return
-      if (!element || !element.nodeName) return
-      if (!_validNodesInput.includes(element.nodeName)) return
+      if (!opts.select) return // selection is disabled
+      if (!element || !element.nodeName) return // no valid element
+      if (!_validNodesInput.includes(element.nodeName)) return // not an input field
+      if (!element.value) return // nothing to select
 
       if (element.createTextRange) {
         const range = element.createTextRange();
@@ -150,13 +166,15 @@ function install (Vue, options) {
     const _findContainer = () => {
       let target;
 
-      if (typeof selector === 'object' && selector.ref) {
+      if (typeof selector === 'object' && selector.ref && this.$refs) {
         selector = this.$refs[selector.ref];
       }
 
       if (selector && typeof selector === 'string') {
-        target = this.$el.querySelector(selector);
-        _log('by selector=%s', selector, target);
+        if (this.$el && typeof this.$el.querySelector === 'function') {
+          target = this.$el.querySelector(selector);
+          _log('by selector=%s', selector, target);
+        }
       }
       else if (selector instanceof _Vue) {
         const vm = selector;
@@ -171,7 +189,21 @@ function install (Vue, options) {
       return target
     };
 
-    function _log(msg, a1, a2, a3) {
+    // listen to click and key events
+    // set userEvent=true to skip focus flow
+    // NOTE useCapture=true is important, ex. in dialogs
+    const _start = () => {
+      document.addEventListener('click', _onClick, true);
+      document.addEventListener('keyup', _onKey, true);
+    };
+    const _finish = () => {
+      document.removeEventListener('click', _onClick, true);
+      document.removeEventListener('keyup', _onKey, true);
+    };
+    const _onClick = () => {userEvent = true;};
+    const _onKey = () => {userEvent = true;};
+
+    function _log() {
       if (opts.debug) console.log.apply(console, arguments);
     }
   };
@@ -193,7 +225,7 @@ class VueAutofocus {
 }
 
 VueAutofocus.install = install;
-VueAutofocus.version = '1.0.2';
+VueAutofocus.version = '1.0.3';
 
 if (window && window.Vue) window.Vue.use(VueAutofocus);
 
