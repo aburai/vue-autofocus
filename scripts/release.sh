@@ -28,5 +28,5 @@ then
   # publish
   git push origin refs/tags/v"$VERSION"
   git push
-  npm publish --access=public
+  npm publish
 fi
