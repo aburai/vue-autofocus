@@ -1,5 +1,5 @@
 /*!
-  * vue-autofocus v1.0.3
+  * vue-autofocus v1.0.4
   * (c) 2019 André Bunse (aburai)
   * @license MIT
   */
@@ -103,6 +103,7 @@ function install (Vue, options) {
         // TODO check visibility of el?
 
         _start();
+        _log('set focus to', el);
         _log('active element before', document.activeElement);
         this$1.$nextTick(function () {
           if (t1) { clearTimeout(t1); }
@@ -170,7 +171,7 @@ function install (Vue, options) {
     var _findContainer = function () {
       var target;
 
-      if (typeof selector === 'object' && selector.ref && this$1.$refs) {
+      if (selector && typeof selector === 'object' && selector.ref && this$1.$refs) {
         selector = this$1.$refs[selector.ref];
       }
 
@@ -227,7 +228,7 @@ VueAutofocus.prototype.init = function init (app /* Vue component instance */) {
 };
 
 VueAutofocus.install = install;
-VueAutofocus.version = '1.0.3';
+VueAutofocus.version = '1.0.4';
 
 if (window && window.Vue) { window.Vue.use(VueAutofocus); }
 
