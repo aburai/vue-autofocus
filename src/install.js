@@ -94,6 +94,7 @@ export function install (Vue, options) {
         // TODO check visibility of el?
 
         _start()
+        _log('set focus to', el)
         _log('active element before', document.activeElement)
         this.$nextTick(() => {
           if (t1) clearTimeout(t1)
@@ -161,7 +162,7 @@ export function install (Vue, options) {
     const _findContainer = () => {
       let target
 
-      if (typeof selector === 'object' && selector.ref && this.$refs) {
+      if (selector && typeof selector === 'object' && selector.ref && this.$refs) {
         selector = this.$refs[selector.ref]
       }
 
