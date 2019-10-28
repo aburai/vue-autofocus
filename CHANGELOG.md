@@ -1,3 +1,8 @@
+## [1.0.4](https://github.com/aburai/vue-autofocus) (2019-10-28)
+
+- fix error when selector is null
+- some package upgrades
+
 ## [1.0.3](https://github.com/aburai/vue-autofocus) (2019-10-24)
 
 - remove console.group in debug mode
