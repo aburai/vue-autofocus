@@ -1,5 +1,5 @@
 /*!
-  * vue-autofocus v1.0.4
+  * vue-autofocus v1.0.5
   * (c) 2020 André Bunse (aburai)
   * @license MIT
   */
@@ -226,7 +226,7 @@ class VueAutofocus {
 }
 
 VueAutofocus.install = install;
-VueAutofocus.version = '1.0.4';
+VueAutofocus.version = '1.0.5';
 
 if (window && window.Vue) window.Vue.use(VueAutofocus);
 
