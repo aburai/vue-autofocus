@@ -1,3 +1,7 @@
+## [1.0.5](https://github.com/aburai/vue-autofocus) (2020-12-02)
+
+- fix vue declaration for prototype function
+
 ## [1.0.4](https://github.com/aburai/vue-autofocus) (2019-10-28)
 
 - fix error when selector is null
