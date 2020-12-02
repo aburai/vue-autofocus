@@ -7,7 +7,7 @@ import VueAutofocus from './index'
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $autofocus: VueAutofocus
+    $autofocus: (selector?: any, opts?: any) => {}
   }
 }
 
