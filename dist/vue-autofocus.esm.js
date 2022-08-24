@@ -1,6 +1,6 @@
 /*!
   * vue-autofocus v1.0.5
-  * (c) 2020 André Bunse (aburai)
+  * (c) 2022 André Bunse (aburai)
   * @license MIT
   */
 // global defaults options
@@ -74,7 +74,7 @@ function install (Vue, options) {
   var t0, t1, t2, t3;
 
   Vue.prototype.$autofocus = function(selector, copts) {
-    var this$1 = this;
+    var this$1$1 = this;
 
     // options for this focus trigger
     var opts = Object.assign({}, _options, copts);
@@ -103,7 +103,7 @@ function install (Vue, options) {
         _start();
         _log('set focus to', el);
         _log('active element before', document.activeElement);
-        this$1.$nextTick(function () {
+        this$1$1.$nextTick(function () {
           if (t1) { clearTimeout(t1); }
           if (t2) { clearTimeout(t2); }
           if (t3) { clearTimeout(t3); }
@@ -169,13 +169,13 @@ function install (Vue, options) {
     var _findContainer = function () {
       var target;
 
-      if (selector && typeof selector === 'object' && selector.ref && this$1.$refs) {
-        selector = this$1.$refs[selector.ref];
+      if (selector && typeof selector === 'object' && selector.ref && this$1$1.$refs) {
+        selector = this$1$1.$refs[selector.ref];
       }
 
       if (selector && typeof selector === 'string') {
-        if (this$1.$el && typeof this$1.$el.querySelector === 'function') {
-          target = this$1.$el.querySelector(selector);
+        if (this$1$1.$el && typeof this$1$1.$el.querySelector === 'function') {
+          target = this$1$1.$el.querySelector(selector);
           _log('by selector=%s', selector, target);
         }
       }
@@ -185,7 +185,7 @@ function install (Vue, options) {
         _log('by vue component', selector, target);
       }
       else {
-        target = this$1.$el;
+        target = this$1$1.$el;
         _log('by component $el', target);
       }
 
@@ -230,4 +230,4 @@ VueAutofocus.version = '1.0.5';
 
 if (window && window.Vue) { window.Vue.use(VueAutofocus); }
 
-export default VueAutofocus;
+export { VueAutofocus };

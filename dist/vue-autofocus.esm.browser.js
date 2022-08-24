@@ -1,6 +1,6 @@
 /*!
   * vue-autofocus v1.0.5
-  * (c) 2020 André Bunse (aburai)
+  * (c) 2022 André Bunse (aburai)
   * @license MIT
   */
 // global defaults options
@@ -230,4 +230,4 @@ VueAutofocus.version = '1.0.5';
 
 if (window && window.Vue) window.Vue.use(VueAutofocus);
 
-export default VueAutofocus;
+export { VueAutofocus };

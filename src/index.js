@@ -9,7 +9,7 @@
 
 import { install } from './install'
 
-export default class VueAutofocus {
+export class VueAutofocus {
   static install: () => void
   static version: string
 
