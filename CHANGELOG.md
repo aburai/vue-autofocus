@@ -1,3 +1,8 @@
+## [1.0.6](https://github.com/aburai/vue-autofocus) (2022-10-28)
+
+- string selector now uses document for querySelector instead of this.$el
+- check for jQuery object as selector
+
 ## [1.0.5](https://github.com/aburai/vue-autofocus) (2020-12-02)
 
 - fix vue declaration for prototype function
