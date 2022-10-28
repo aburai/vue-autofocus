@@ -1,3 +1,7 @@
+## [1.0.7](https://github.com/aburai/vue-autofocus) (2022-10-28)
+
+- bump packages from dependabot
+
 ## [1.0.6](https://github.com/aburai/vue-autofocus) (2022-10-28)
 
 - string selector now uses document for querySelector instead of this.$el
