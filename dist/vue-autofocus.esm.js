@@ -1,6 +1,6 @@
 /*!
-  * vue-autofocus v1.0.7
-  * (c) 2022 André Bunse (aburai)
+  * vue-autofocus v1.0.8
+  * (c) 2023 André Bunse (aburai)
   * @license MIT
   */
 // global defaults options
@@ -48,11 +48,19 @@ var _isInvalid = function (el) {
     return ''
 };
 var _isVisible = function (el, opts) {
-    if (!el || typeof el.getBoundingClientRect !== 'function') { return false }
+    if (!el || typeof el.getBoundingClientRect !== 'function') {
+        if (opts.debug) { console.debug('invalid element', el); }
+        return false
+    }
 
     // check if we have an open dialog
-    var dialog = document.querySelector('body > dialog[open]');
-    if (dialog && !dialog.contains(el)) { return false }
+    var dialogs = document.querySelectorAll('body > dialog[open]');
+    // get top-most dialog
+    var dialog = dialogs[dialogs.length - 1];
+    if (dialog && !dialog.contains(el)) {
+        if (opts.debug) { console.debug('not part of open dialog'); }
+        return false
+    }
 
     var parentWidth;
     var parentHeight;
@@ -223,6 +231,7 @@ function install (Vue, options) {
 
 /*  */
 
+
 var VueAutofocus = function VueAutofocus () {};
 
 VueAutofocus.prototype.init = function init (app /* Vue component instance */) {
@@ -235,7 +244,7 @@ VueAutofocus.prototype.init = function init (app /* Vue component instance */) {
 };
 
 VueAutofocus.install = install;
-VueAutofocus.version = '1.0.7';
+VueAutofocus.version = '1.0.8';
 
 if (window && window.Vue) {
     window.Vue.use(VueAutofocus);
