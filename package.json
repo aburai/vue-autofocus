@@ -1,6 +1,6 @@
 {
   "name": "@aburai/vue-autofocus",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Vue plugin to help manage focus handling.",
   "author": "André Bunse (aburai)",
   "license": "MIT",
