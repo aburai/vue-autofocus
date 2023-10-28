@@ -43,11 +43,19 @@ const _isInvalid = (el) => {
     return ''
 }
 const _isVisible = (el, opts) => {
-    if (!el || typeof el.getBoundingClientRect !== 'function') return false
+    if (!el || typeof el.getBoundingClientRect !== 'function') {
+        if (opts.debug) console.debug('invalid element', el)
+        return false
+    }
 
     // check if we have an open dialog
-    const dialog = document.querySelector('body > dialog[open]')
-    if (dialog && !dialog.contains(el)) return false
+    const dialogs = document.querySelectorAll('body > dialog[open]')
+    // get top-most dialog
+    const dialog = dialogs[dialogs.length - 1]
+    if (dialog && !dialog.contains(el)) {
+        if (opts.debug) console.debug('not part of open dialog')
+        return false
+    }
 
     let parentWidth
     let parentHeight
